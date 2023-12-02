@@ -8,6 +8,7 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
+// Specify window on global so we can ensure that `window.fetch` is available
 // @ts-ignore
 globalThis.window = globalThis
 
@@ -30,18 +31,16 @@ export interface Env {
 	// MY_QUEUE: Queue;
 }
 
-const provider = new ethers.providers.StaticJsonRpcProvider({ url: 'https://nodes.sequence.app/polygon', skipFetchSetup: true }, 137)
+// ethers provider -- here its important to use the static jcson rpc provider passing
+// the skipFetchSetup and also the chainId
+const nodeUrl = 'https://nodes.sequence.app/polygon'
+const chainId = 137
+const provider = new ethers.providers.StaticJsonRpcProvider({ url: nodeUrl, skipFetchSetup: true }, chainId)
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
 		const blockNumber = await getBlockNumber(request)
-
-		// @ts-ignore
-		console.log('...', window.fetch)
-
-		const respText = `Hello World! ${blockNumber}`
-
-		return new Response(respText)
+		return new Response(`Hello World! ${blockNumber}`)
 	}
 }
 
