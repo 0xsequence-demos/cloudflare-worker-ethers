@@ -1,4 +1,4 @@
-# cloudflare-worker-sequence
+# cloudflare-worker-ethers
 
 ## Usage
 
