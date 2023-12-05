@@ -2,10 +2,6 @@
 // cloudflare-worker-ethers
 //
 
-// Specify window on global so we can ensure that `window.fetch` is available
-// @ts-ignore
-globalThis.window = globalThis
-
 import { ethers } from 'ethers'
 
 export interface Env {
